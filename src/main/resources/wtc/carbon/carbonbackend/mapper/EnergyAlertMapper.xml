@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD MyBatis Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wtc.carbon.carbonbackend.mapper.EnergyAlertMapper">
+
+
+    <!-- 定义 ResultMap -->
+    <resultMap id="energyAlertResultMap" type="wtc.carbon.carbonbackend.entity.EnergyAlert">
+        <result property="monitoringPointName" column="monitoring_point_name"/>
+        <result property="monitoringPointAddress" column="monitoring_point_address"/>
+        <result property="realTimePower" column="real_time_power"/>
+        <result property="realTimeVoltage" column="real_time_voltage"/>
+        <result property="status" column="status"/>
+        <result property="reportTime" column="report_time"/>
+        <result property="notes" column="notes"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <!-- 查询所有记录 -->
+    <select id="selectAllEnergyAlerts" resultMap="energyAlertResultMap">
+        SELECT * FROM a_energy_alert
+    </select>
+
+    <!-- 根据 ID 查询记录 -->
+    <select id="selectEnergyAlertById" resultMap="energyAlertResultMap">
+        SELECT * FROM a_energy_alert WHERE id = #{id}
+    </select>
+
+    <!-- 插入新记录 -->
+    <insert id="insertEnergyAlert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO a_energy_alert
+        (monitoring_point_name, monitoring_point_address, real_time_power, real_time_voltage, status, report_time, notes, created_at, updated_at)
+        VALUES
+            (#{monitoringPointName}, #{monitoringPointAddress}, #{realTimePower}, #{realTimeVoltage}, #{status}, #{reportTime}, #{notes}, now(), now())
+    </insert>
+
+    <!-- 更新记录 -->
+    <update id="updateEnergyAlert">
+        UPDATE a_energy_alert
+        <set>
+            <if test="monitoringPointName != null">monitoring_point_name = #{monitoringPointName},</if>
+            <if test="monitoringPointAddress != null">monitoring_point_address = #{monitoringPointAddress},</if>
+            <if test="realTimePower != null">real_time_power = #{realTimePower},</if>
+            <if test="realTimeVoltage != null">real_time_voltage = #{realTimeVoltage},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="reportTime != null">report_time = #{reportTime},</if>
+            <if test="notes != null">notes = #{notes},</if>
+            updated_at = CURRENT_TIMESTAMP
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="deleteEnergyAlert">
+        DELETE FROM a_energy_alert WHERE id = #{id}
+    </delete>
+
+
+
+</mapper>
