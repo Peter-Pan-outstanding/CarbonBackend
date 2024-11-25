@@ -25,6 +25,6 @@ public class TestController {
         ArrayList<String> list = new ArrayList<>();
         list.add("value1");
         list.add("value2");
-        return list; // to motivate git
+        return list; // to motivate git 2
     }
 }
