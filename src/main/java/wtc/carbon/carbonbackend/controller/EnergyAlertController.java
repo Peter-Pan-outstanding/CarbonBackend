@@ -3,14 +3,13 @@ package wtc.carbon.carbonbackend.controller;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import wtc.carbon.carbonbackend.common.Result;
 import wtc.carbon.carbonbackend.entity.EnergyAlert;
 import wtc.carbon.carbonbackend.service.EnergyAlertService;
 
-
 import java.util.List;
+
 @RestController
 @RequestMapping("/energyAlerts")
 public class EnergyAlertController {
