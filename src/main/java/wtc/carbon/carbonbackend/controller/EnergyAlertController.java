@@ -60,7 +60,6 @@ public class EnergyAlertController {
     }
 
 
-
     // 删除记录
     @DeleteMapping("/deleteEnergyAlertById/{id}")
     public Result<?> deleteEnergyAlertById(@PathVariable Integer id) {
