@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.jdbc.SQL;
 import wtc.carbon.carbonbackend.entity.ProjectMaintenance;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Mapper
@@ -14,6 +15,19 @@ public interface ProjectMaintenanceMapper {
 
     // 查询所有记录
     List<ProjectMaintenance> getAllProjects();
+
+    // 根据名称和时间查询
+    List<ProjectMaintenance> getProjectsByNameAndDate(
+            String projectName,
+            LocalDate startDateStart,
+            LocalDate startDateEnd,
+            LocalDate endDateStart,
+            LocalDate endDateEnd,
+            Integer status
+    );
+
+    // 分页查询
+    List<ProjectMaintenance> getProjectMaintenanceWithPagination(int limit, int offset);
 
 
 

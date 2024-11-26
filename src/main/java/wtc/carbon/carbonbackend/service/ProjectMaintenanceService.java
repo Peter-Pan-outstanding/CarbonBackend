@@ -2,6 +2,7 @@ package wtc.carbon.carbonbackend.service;
 
 import wtc.carbon.carbonbackend.entity.ProjectMaintenance;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ProjectMaintenanceService {
@@ -9,6 +10,17 @@ public interface ProjectMaintenanceService {
     ProjectMaintenance getProjectById(int id);
 
     List<ProjectMaintenance> getAllProjects();
+
+    List<ProjectMaintenance> getProjectsByNameAndDate(String projectName,
+                                                      LocalDate startDateStart,
+                                                      LocalDate startDateEnd,
+                                                      LocalDate endDateStart,
+                                                      LocalDate endDateEnd,
+                                                      Integer status
+                                                      );
+
+    List<ProjectMaintenance> getProjectMaintenanceWithPagination(int pageNumber, int pageSize);
+
 
     boolean saveProjectMaintenance(ProjectMaintenance projectMaintenance);
 

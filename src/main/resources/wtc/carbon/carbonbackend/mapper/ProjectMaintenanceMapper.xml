@@ -24,6 +24,33 @@
         SELECT * FROM a_project_maintenance
     </select>
 
+    <!-- 根据名称和时间查询 -->
+    <select id="getProjectsByNameAndDate" resultMap="projectMaintenanceResultMap">
+        SELECT * FROM a_project_maintenance
+        <where>
+            <if test="projectName != null and projectName != ''">
+                AND project_name = #{projectName}
+            </if>
+            <if test="startDateStart != null and startDateEnd != null">
+                AND start_date between #{startDateStart} and #{startDateEnd}
+            </if>
+            <if test="endDateStart != null and endDateEnd != null">
+                AND end_date between #{endDateStart} and #{endDateEnd}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+    </select>
+
+<!--    分页查询-->
+    <select id="getProjectMaintenanceWithPagination" resultMap="projectMaintenanceResultMap">
+        SELECT * FROM a_project_maintenance
+        ORDER BY id
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+
     <!-- 插入新记录 -->
     <insert id="saveProjectMaintenance" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO a_project_maintenance

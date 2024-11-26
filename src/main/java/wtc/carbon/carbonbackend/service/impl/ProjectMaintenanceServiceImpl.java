@@ -7,6 +7,7 @@ import wtc.carbon.carbonbackend.entity.ProjectMaintenance;
 import wtc.carbon.carbonbackend.mapper.ProjectMaintenanceMapper;
 import wtc.carbon.carbonbackend.service.ProjectMaintenanceService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -25,6 +26,25 @@ public class ProjectMaintenanceServiceImpl implements ProjectMaintenanceService 
     @Override
     public List<ProjectMaintenance> getAllProjects() {
         return projectMaintenanceMapper.getAllProjects();
+    }
+
+    @Override
+    public List<ProjectMaintenance> getProjectsByNameAndDate(String projectName,
+                                                             LocalDate startDateStart,
+                                                             LocalDate startDateEnd,
+                                                             LocalDate endDateStart,
+                                                             LocalDate endDateEnd,
+                                                             Integer status
+    ){
+        return projectMaintenanceMapper.getProjectsByNameAndDate(projectName, startDateStart, startDateEnd, endDateStart, endDateEnd, status);
+    }
+
+    @Override
+    public List<ProjectMaintenance> getProjectMaintenanceWithPagination(int pageNumber, int pageSize) {
+
+        int offset = (pageNumber - 1) * pageSize;
+        return projectMaintenanceMapper.getProjectMaintenanceWithPagination(pageSize, offset);
+
     }
 
 

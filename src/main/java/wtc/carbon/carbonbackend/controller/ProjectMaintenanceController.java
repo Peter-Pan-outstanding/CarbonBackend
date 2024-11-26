@@ -1,13 +1,15 @@
 package wtc.carbon.carbonbackend.controller;
 
 import jakarta.annotation.Resource;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import wtc.carbon.carbonbackend.common.Result;
 import wtc.carbon.carbonbackend.entity.ProjectMaintenance;
 import wtc.carbon.carbonbackend.service.ProjectMaintenanceService;
 
+import java.time.LocalDate;
 import java.util.List;
-//
+
 @RestController
 @RequestMapping("/projectMaintenance")
 public class ProjectMaintenanceController {
@@ -32,6 +34,48 @@ public class ProjectMaintenanceController {
         List<ProjectMaintenance> projects = projectMaintenanceService.getAllProjects();
         return Result.success(projects);
     }
+
+    /**
+     * 数据库里有两个日期字段 start_date 和 end_date
+     * 查询条件是 startDateStart <= start_date <= startDateEnd
+     *          endDateStart <= end_date <= endDateEnd
+     */
+    @GetMapping("/getProjectsByNameAndDate")
+    public Result<List<ProjectMaintenance>> getProjectsByNameAndDate(
+            @RequestParam(required = false) String projectName,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-M-d") LocalDate startDateStart,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-M-d")LocalDate startDateEnd,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-M-d")LocalDate endDateStart,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-M-d")LocalDate endDateEnd,
+            @RequestParam(required = false) Integer status
+            ) {
+        List<ProjectMaintenance> projects = projectMaintenanceService.getProjectsByNameAndDate(projectName,
+                startDateStart,
+                startDateEnd,
+                endDateStart,
+                endDateEnd,
+                status);
+        if (projects != null) {
+            return Result.success(projects);
+        }else {
+            return Result.error(400,"请输入正确的名称或者时间");
+        }
+    }
+
+    // 分页查询
+    @RequestMapping("/getProjectMaintenanceWithPagination")
+    public Result<List<ProjectMaintenance>> getProjectMaintenanceWithPagination(
+            @RequestParam(defaultValue = "1") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+        List<ProjectMaintenance> projects = projectMaintenanceService.getProjectMaintenanceWithPagination(pageNumber, pageSize);
+        if (projects != null) {
+            return Result.success(projects);
+        }else {
+            return Result.error(400,"页数有误");
+        }
+    }
+
 
     // 添加记录
     @PostMapping("/saveProject")
