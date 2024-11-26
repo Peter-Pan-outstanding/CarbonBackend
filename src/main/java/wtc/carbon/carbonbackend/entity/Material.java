@@ -2,14 +2,18 @@ package wtc.carbon.carbonbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Material {
-    private Integer MaterialId;                // 主键，自增
+    private Integer materialId;                // 主键，自增
     @NotNull
     private String materialCode;       // 物料编码
     @NotNull
