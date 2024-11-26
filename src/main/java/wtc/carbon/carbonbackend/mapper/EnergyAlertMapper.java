@@ -3,6 +3,7 @@ package wtc.carbon.carbonbackend.mapper;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.jdbc.SQL;
 import wtc.carbon.carbonbackend.entity.EnergyAlert;
+import wtc.carbon.carbonbackend.enums.EnergyStatus;
 
 import java.util.List;
 
@@ -16,6 +17,13 @@ public interface EnergyAlertMapper {
     // 根据 ID 查询记录
     EnergyAlert selectEnergyAlertById(Integer id);
 
+    // 根据条件查询List<EnergyAlert>
+    List<EnergyAlert> getEnergyAlertsByConditions( String monitoringPointName,
+                                          String monitoringPointAddress,
+                                          Integer status);
+
+    // 分页查询所有的EnergyAlert
+    List<EnergyAlert> getEnergyAlertsWithPagination(int limit, int offset);
 
 
     // 插入新记录

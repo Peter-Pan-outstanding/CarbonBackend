@@ -26,6 +26,31 @@
         SELECT * FROM a_energy_alert WHERE id = #{id}
     </select>
 
+    <!-- 分页查询所有的记录 -->
+    <select id="getEnergyAlertsWithPagination" resultMap="energyAlertResultMap">
+        SELECT * FROM a_energy_alert
+        ORDER BY id
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+
+    <!-- 根据条件查询 -->
+    <select id="getEnergyAlertsByConditions" resultMap="energyAlertResultMap">
+        SELECT * FROM a_energy_alert
+        <where>
+            <if test="monitoringPointName != null and monitoringPointName != ''">
+                AND monitoring_point_name = #{monitoringPointName}
+            </if>
+            <if test="monitoringPointAddress != null and monitoringPointAddress != ''">
+                AND monitoring_point_address = #{monitoringPointAddress}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+    </select>
+
+
     <!-- 插入新记录 -->
     <insert id="insertEnergyAlert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO a_energy_alert

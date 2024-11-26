@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import wtc.carbon.carbonbackend.common.Result;
 import wtc.carbon.carbonbackend.entity.EnergyAlert;
+import wtc.carbon.carbonbackend.enums.EnergyStatus;
 import wtc.carbon.carbonbackend.service.EnergyAlertService;
 
 import java.util.List;
@@ -34,6 +35,31 @@ public class EnergyAlertController {
         List<EnergyAlert> energyAlerts = energyAlertService.getAllEnergyAlerts();
         return Result.success(energyAlerts);
     }
+
+    // 根据条件查询
+    @GetMapping("/getEnergyAlertsByConditions")
+    public Result<List<EnergyAlert>> getEnergyAlertsByConditions(
+            @RequestParam(required = false) String monitoringPointName,
+            @RequestParam(required = false) String monitoringPointAddress,
+            @RequestParam(required = false) Integer status
+            ){
+        List<EnergyAlert> energyAlerts = energyAlertService.getEnergyAlertsByConditions(monitoringPointName, monitoringPointAddress, status);
+
+        return Result.success(energyAlerts);
+    }
+
+    /**
+     * @param pageNumber 显示第几页
+     * @param pageSize 一页显示多少行
+     */
+    @GetMapping("/getEnergyAlertsWithPagination")
+    public List<EnergyAlert> getEnergyAlertsWithPagination(
+            @RequestParam(defaultValue = "1") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        return energyAlertService.getEnergyAlertsWithPagination(pageNumber, pageSize);
+    }
+
+
 
     // 添加记录
     @PostMapping("/saveEnergyAlert")

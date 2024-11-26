@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class EnergyAlert {
     private Integer id;
-    private String monitoringPointName;
+    private String monitoringPointName; // 检测点名称
     private String monitoringPointAddress;
     private Double realTimePower;
     private Double realTimeVoltage;
