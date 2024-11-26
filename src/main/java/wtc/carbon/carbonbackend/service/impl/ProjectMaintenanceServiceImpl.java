@@ -33,7 +33,7 @@ public class ProjectMaintenanceServiceImpl implements ProjectMaintenanceService 
     // 添加记录
     @Override
     @Transactional
-    public boolean addProjectMaintenance(ProjectMaintenance project) {
+    public boolean saveProjectMaintenance(ProjectMaintenance project) {
         return projectMaintenanceMapper.saveProjectMaintenance(project) >= 1;
     }
 

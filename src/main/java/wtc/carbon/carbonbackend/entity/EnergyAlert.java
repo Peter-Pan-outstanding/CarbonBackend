@@ -4,10 +4,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import wtc.carbon.carbonbackend.config.LocalDateTimeDeserializer;
+import wtc.carbon.carbonbackend.util.LocalDateTimeDeserializer;
 import wtc.carbon.carbonbackend.enums.EnergyStatus;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -20,7 +19,8 @@ public class EnergyAlert {
     private Double realTimePower;
     private Double realTimeVoltage;
     private EnergyStatus status;
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class) // 应用时间格式。底下两个由数据库的now()生成
+    // 应用时间格式。底下两个由数据库的now()生成
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime reportTime;
     private String notes;
     private LocalDateTime  createdAt;

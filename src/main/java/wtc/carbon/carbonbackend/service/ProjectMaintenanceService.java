@@ -10,7 +10,7 @@ public interface ProjectMaintenanceService {
 
     List<ProjectMaintenance> getAllProjects();
 
-    boolean addProjectMaintenance(ProjectMaintenance projectMaintenance);
+    boolean saveProjectMaintenance(ProjectMaintenance projectMaintenance);
 
     boolean updateProjectMaintenanceById(ProjectMaintenance projectMaintenance);
 

@@ -12,7 +12,7 @@ import wtc.carbon.carbonbackend.service.EnergyAlertService;
 
 import java.util.List;
 @RestController
-@RequestMapping("/energy-alerts")
+@RequestMapping("/energyAlerts")
 public class EnergyAlertController {
 
     @Resource
