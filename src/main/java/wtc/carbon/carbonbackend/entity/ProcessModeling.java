@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class ProcessModeling {
-    private Integer ProcessId;                // 主键，自增
+    private Integer processId;                // 主键，自增
     @NotNull
     private String processName;        // 工艺名称
     @NotNull

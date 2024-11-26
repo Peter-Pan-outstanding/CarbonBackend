@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wtc.carbon.carbonbackend.mapper.ProcessMapper">
+
+    <resultMap id="ProcessModelingResultMap" type="wtc.carbon.carbonbackend.entity.ProcessModeling">
+        <result property="processId" column="process_id"/>
+        <result property="processName" column="process_name"/>
+        <result property="powerConsumption" column="power_consumption"/>
+        <result property="processDescription" column="process_description"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <insert id="saveProcess">
+        INSERT INTO a_process_modeling(process_name, product, remark, power_consumption, process_description, created_at, updated_at)
+        VALUES (#{processName}, #{product}, #{remark}, #{powerConsumption}, #{processDescription}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    </insert>
+
+    <update id="updateProcess">
+        UPDATE a_process_modeling
+        <set>
+            <if test="processName != null">process_name = #{processName},</if>
+            <if test="product != null">product = #{product},</if>
+            <if test="model != null">model = #{model},</if>
+            <if test="specification != null">specification = #{specification},</if>
+            <if test="unit != null">unit = #{unit},</if>
+            <if test="powerConsumption != null">power_consumption = #{powerConsumption},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="processDescription != null">process_description = #{processDescription},</if>
+            updated_at = CURRENT_TIMESTAMP
+        </set>
+        WHERE process_id = #{processId}
+    </update>
+
+    <delete id="deleteProcess">
+        DELETE FROM a_process_modeling
+        WHERE process_id = #{id}
+    </delete>
+
+    <select id="getProcessModeling" resultMap="ProcessModelingResultMap">
+        SELECT
+        a.process_id,
+        a.process_name,
+        a.product,
+        f.product_model AS model,               -- 从 a_factory_modeling 获取 model
+        f.product_specification AS specification, -- 从 a_factory_modeling 获取 specification
+        f.product_unit AS unit,                 -- 从 a_factory_modeling 获取 unit
+        a.power_consumption,
+        a.remark,
+        a.created_at,
+        a.updated_at,
+        a.process_description
+        FROM a_process_modeling a
+        LEFT JOIN a_factory_modeling f
+        ON a.product = f.product
+        <where>
+            <if test="search != null and search != ''">
+                AND a.process_name LIKE CONCAT('%', #{search}, '%')
+            </if>
+        </where>
+        ORDER BY a.process_id
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+</mapper>
