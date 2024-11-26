@@ -50,7 +50,7 @@ public class EnergyAlertController {
 
     /**
      * @param pageNumber 显示第几页
-     * @param pageSize 一页显示多少行。
+     * @param pageSize 一页显示多少行
      */
     @GetMapping("/getEnergyAlertsWithPagination")
     public List<EnergyAlert> getEnergyAlertsWithPagination(
