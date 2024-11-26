@@ -63,7 +63,7 @@ public class ProjectMaintenanceController {
     }
 
     // 分页查询
-    @RequestMapping("/getProjectMaintenanceWithPagination")
+    @GetMapping ("/getProjectMaintenanceWithPagination")
     public Result<List<ProjectMaintenance>> getProjectMaintenanceWithPagination(
             @RequestParam(defaultValue = "1") int pageNumber,
             @RequestParam(defaultValue = "10") int pageSize

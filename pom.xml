@@ -71,13 +71,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- 接口文档 -->
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-            <version>4.3.0</version>
-        </dependency>
-
         <!-- 权限验证-->
         <dependency>
             <groupId>com.auth0</groupId>
