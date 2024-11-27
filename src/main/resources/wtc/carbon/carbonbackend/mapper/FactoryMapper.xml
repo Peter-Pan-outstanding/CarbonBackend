@@ -50,8 +50,8 @@
     </insert>
 
     <insert id="insertFactory">
-        INSERT INTO a_factory_modeling(production_line, product, product_model, product_specification, description, material_id, created_at, updated_at)
-        VALUES (#{productionLine}, #{product}, #{productModel}, #{productSpecification}, #{description}, #{materialId}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+        INSERT INTO a_factory_modeling(production_line, product, product_model, product_specification, description, material_id, created_at, updated_at,product_unit)
+        VALUES (#{productionLine}, #{product}, #{productModel}, #{productSpecification}, #{description}, #{materialId}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,#{productUnit})
     </insert>
 
     <update id="updateFactory">
@@ -63,7 +63,7 @@
             <if test="productSpecification != null">product_specification = #{productSpecification},</if>
             <if test="description != null">description = #{description},</if>
             <if test="materialId != null">material_id = #{materialId},</if>
-            <if test="materialUnit != null">material_unit = #{materialUnit},</if>
+            <if test="productUnit != null">product_unit = #{productUnit},</if>
             updated_at = CURRENT_TIMESTAMP
         </set>
         WHERE factory_id = #{factoryId}
@@ -83,7 +83,11 @@
 
     <select id="getMaterialList" resultMap="MaterialResultMap">
         SELECT * FROM a_material
-        WHERE material_type = #{materialType}
+        <where>
+            <if test="materialType != null and materialType != ''">
+                material_type = #{materialType}
+            </if>
+        </where>
     </select>
 
     <select id="getEquipmentList" resultMap="EquipmentResultMap">
