@@ -13,5 +13,4 @@
         SELECT * FROM a_admin where `username`=#{username}
     </select>
 
-
 </mapper>

@@ -3,7 +3,6 @@ package wtc.carbon.carbonbackend.service.impl;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import wtc.carbon.carbonbackend.entity.EnergyAlert;
-import wtc.carbon.carbonbackend.enums.EnergyStatus;
 import wtc.carbon.carbonbackend.mapper.EnergyAlertMapper;
 import wtc.carbon.carbonbackend.service.EnergyAlertService;
 
@@ -19,7 +18,7 @@ public class EnergyAlertServiceImpl implements EnergyAlertService {
 
     @Override
     public EnergyAlert getEnergyAlertById(Integer id) {
-        return energyAlertMapper.selectEnergyAlertById(id);
+        return energyAlertMapper.getEnergyAlertById(id);
     }
 
     @Override
@@ -42,12 +41,12 @@ public class EnergyAlertServiceImpl implements EnergyAlertService {
 
     @Override
     public List<EnergyAlert> getAllEnergyAlerts() {
-        return energyAlertMapper.selectAllEnergyAlerts();
+        return energyAlertMapper.getAllEnergyAlerts();
     }
 
     @Override
     public boolean addEnergyAlert(EnergyAlert alert) {
-        return energyAlertMapper.insertEnergyAlert(alert) >= 1;
+        return energyAlertMapper.saveEnergyAlert(alert) >= 1;
     }
 
     @Override

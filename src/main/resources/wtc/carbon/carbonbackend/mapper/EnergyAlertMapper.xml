@@ -17,12 +17,12 @@
     </resultMap>
 
     <!-- 查询所有记录 -->
-    <select id="selectAllEnergyAlerts" resultMap="energyAlertResultMap">
+    <select id="getAllEnergyAlerts" resultMap="energyAlertResultMap">
         SELECT * FROM a_energy_alert
     </select>
 
     <!-- 根据 ID 查询记录 -->
-    <select id="selectEnergyAlertById" resultMap="energyAlertResultMap">
+    <select id="getEnergyAlertById" resultMap="energyAlertResultMap">
         SELECT * FROM a_energy_alert WHERE id = #{id}
     </select>
 
@@ -57,7 +57,7 @@
 
 
     <!-- 插入新记录 -->
-    <insert id="insertEnergyAlert" useGeneratedKeys="true" keyProperty="id">
+    <insert id="saveEnergyAlert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO a_energy_alert
         (monitoring_point_name, monitoring_point_address, real_time_power, real_time_voltage, status, report_time, notes, created_at, updated_at)
         VALUES
