@@ -3,6 +3,7 @@ package wtc.carbon.carbonbackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import wtc.carbon.carbonbackend.common.PageBean;
 import wtc.carbon.carbonbackend.common.Result;
 import wtc.carbon.carbonbackend.entity.Equipment;
 import wtc.carbon.carbonbackend.entity.FactoryModeling;
@@ -30,11 +31,12 @@ public class FactoryController {
      * @param pageSize 一页显示多少行.
      */
     @GetMapping("/getFactoryModeling")
-    public List<FactoryModeling> getFactoryModelingWithPagination(
+    public Result<PageBean<FactoryModeling>> getFactoryModelingWithPagination(
             @RequestParam(defaultValue = "1") int pageNumber,
             @RequestParam(defaultValue = "10") int pageSize,
             @RequestParam(required = false) String search) {
-        return factoryService.getFactoryModelingWithPagination(pageNumber, pageSize,search);
+        PageBean<FactoryModeling> fm = factoryService.getFactoryModelingWithPagination(pageNumber, pageSize,search);
+        return Result.success(fm);
     }
 
     //查询物料信息

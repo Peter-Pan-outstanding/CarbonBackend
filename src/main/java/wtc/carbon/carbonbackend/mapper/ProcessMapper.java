@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface ProcessMapper {
-    List<ProcessModeling> getProcessModeling(int limit, int offset, String search);
+    List<ProcessModeling> getProcessModeling(String search);
 
     int updateProcess(ProcessModeling alert);
 

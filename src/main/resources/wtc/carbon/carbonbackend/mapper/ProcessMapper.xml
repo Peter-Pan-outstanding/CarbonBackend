@@ -62,7 +62,6 @@
             </if>
         </where>
         ORDER BY a.process_id
-        LIMIT #{limit} OFFSET #{offset}
     </select>
 
 </mapper>

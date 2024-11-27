@@ -2,6 +2,7 @@ package wtc.carbon.carbonbackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import wtc.carbon.carbonbackend.common.PageBean;
 import wtc.carbon.carbonbackend.common.Result;
 import wtc.carbon.carbonbackend.entity.FactoryModeling;
 import wtc.carbon.carbonbackend.entity.ProcessModeling;
@@ -21,11 +22,12 @@ public class ProcessController {
      * @param pageSize 一页显示多少行.
      */
     @GetMapping("/getProcessModeling")
-    public List<ProcessModeling> getProcessModeling(
+    public Result<PageBean<ProcessModeling>> getProcessModeling(
             @RequestParam(defaultValue = "1") int pageNumber,
             @RequestParam(defaultValue = "10") int pageSize,
             @RequestParam(required = false) String search) {
-        return processService.getProcessModeling(pageNumber, pageSize,search);
+        PageBean<ProcessModeling> pm = processService.getProcessModeling(pageNumber, pageSize,search);
+        return Result.success(pm);
     }
 
     // 更新记录
