@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wtc.carbon.carbonbackend.mapper.FactoryMapper">
+
+    <!-- 定义 ResultMap -->
+    <resultMap id="factoryModelingResultMap" type="wtc.carbon.carbonbackend.entity.FactoryModeling">
+        <result property="factoryId" column="factory_id"/>
+        <result property="productionLine" column="production_line"/>
+        <result property="productModel" column="product_model"/>
+        <result property="productSpecification" column="product_specification"/>
+        <result property="productUnit" column="product_unit"/>
+        <result property="materialId" column="material_id"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <resultMap id="MaterialResultMap" type="wtc.carbon.carbonbackend.entity.Material">
+        <result property="materialId" column="material_id"/>
+        <result property="materialCode" column="material_code"/>
+        <result property="materialName" column="material_name"/>
+        <result property="materialModel" column="material_model"/>
+        <result property="materialSpec" column="material_spec"/>
+        <result property="materialUnit" column="material_unit"/>
+        <result property="materialPrice" column="material_price"/>
+        <result property="materialType" column="material_type"/>
+        <result property="materialRemark" column="material_remark"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <resultMap id="EquipmentResultMap" type="wtc.carbon.carbonbackend.entity.Equipment">
+        <result property="equipmentId" column="equipment_id"/>
+        <result property="equipmentCode" column="equipment_code"/>
+        <result property="equipmentName" column="equipment_name"/>
+        <result property="equipmentModel" column="equipment_model"/>
+        <result property="equipmentSpec" column="equipment_spec"/>
+        <result property="manufacturer" column="manufacturer"/>
+        <result property="productionDate" column="production_date"/>
+        <result property="productionBatch" column="production_batch"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <insert id="insertEquipment">
+        INSERT INTO a_equipment(equipment_code, equipment_name, equipment_model, equipment_spec, manufacturer, production_date, production_batch, created_at, updated_at)
+        VALUES (#{equipmentCode}, #{equipmentName}, #{equipmentModel}, #{equipmentSpec}, #{manufacturer}, #{productionDate}, #{productionBatch}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    </insert>
+
+    <insert id="insertFactory">
+        INSERT INTO a_factory_modeling(production_line, product, product_model, product_specification, description, material_id, created_at, updated_at,product_unit)
+        VALUES (#{productionLine}, #{product}, #{productModel}, #{productSpecification}, #{description}, #{materialId}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,#{productUnit})
+    </insert>
+
+    <update id="updateFactory">
+        UPDATE a_factory_modeling
+        <set>
+            <if test="productionLine != null">production_line = #{productionLine},</if>
+            <if test="product != null">product = #{product},</if>
+            <if test="productModel != null">product_model = #{productModel},</if>
+            <if test="productSpecification != null">product_specification = #{productSpecification},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="materialId != null">material_id = #{materialId},</if>
+            <if test="productUnit != null">product_unit = #{productUnit},</if>
+            updated_at = CURRENT_TIMESTAMP
+        </set>
+        WHERE factory_id = #{factoryId}
+    </update>
+
+    <delete id="deleteFactory">
+        DELETE FROM a_factory_modeling WHERE factory_id = #{id}
+    </delete>
+
+    <delete id="deleteEquipment">
+        DELETE FROM a_equipment WHERE equipment_id = #{id}
+    </delete>
+
+    <select id="list" resultMap="factoryModelingResultMap">
+        SELECT * FROM a_factory_modeling
+    </select>
+
+    <select id="getMaterialList" resultMap="MaterialResultMap">
+        SELECT * FROM a_material
+        <where>
+            <if test="materialType != null and materialType != ''">
+                material_type = #{materialType}
+            </if>
+        </where>
+    </select>
+
+    <select id="getEquipmentList" resultMap="EquipmentResultMap">
+        SELECT * FROM a_equipment
+        WHERE equipment_code = #{factoryId}
+    </select>
+
+    <select id="getFactoryModelingWithPagination" resultMap="factoryModelingResultMap">
+        SELECT * FROM a_factory_modeling
+        <where>
+            <if test="search != null and search != ''">
+                production_line like concat('%',#{search},'%')
+            </if>
+        </where>
+        ORDER BY factory_id
+    </select>
+
+</mapper>

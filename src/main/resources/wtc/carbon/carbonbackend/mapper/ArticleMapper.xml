@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD MyBatis Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wtc.carbon.carbonbackend.mapper.ArticleMapper">
+
+    <!-- 定义 ResultMap -->
+    <resultMap id="articleResultMap" type="wtc.carbon.carbonbackend.entity.Article">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="documentNumber" column="document_number"/>
+        <result property="issuingDepartment" column="issuing_department"/>
+        <result property="publishDate" column="publish_date"/>
+        <result property="type" column="type"/>
+        <result property="content" column="content"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <!-- 查询所有文章 -->
+    <select id="getAllArticles" resultMap="articleResultMap">
+        SELECT * FROM a_article
+    </select>
+
+
+    <!-- 根据类型查询查询文章 -->
+    <select id="getArticlesByType" resultMap="articleResultMap">
+        SELECT * FROM a_article WHERE type=#{type}
+    </select>
+
+
+
+
+
+
+
+
+    <!--    以下方法均为扩展考虑，目前没有用到-->
+
+
+
+    <!-- 根据 ID 查询文章 -->
+    <select id="getArticleById" resultMap="articleResultMap">
+        SELECT * FROM a_article WHERE id = #{id}
+    </select>
+
+    <!-- 分页查询所有文章 -->
+    <select id="getArticlesWithPagination" resultMap="articleResultMap">
+        SELECT * FROM a_article
+        ORDER BY id
+            LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 获取文章总数 -->
+    <select id="getArticlesCount" resultType="int">
+        SELECT COUNT(*) FROM a_article
+    </select>
+
+    <!-- 根据条件查询文章 -->
+    <select id="getArticlesByConditions" resultMap="articleResultMap">
+        SELECT * FROM a_article
+        <where>
+            <if test="title != null and title != ''">
+                AND title = #{title}
+            </if>
+            <if test="documentNumber != null and documentNumber != ''">
+                AND document_number = #{documentNumber}
+            </if>
+            <if test="issuingDepartment != null and issuingDepartment != ''">
+                AND issuing_department = #{issuingDepartment}
+            </if>
+            <if test="type != null">
+                AND type = #{type}
+            </if>
+        </where>
+    </select>
+
+    <!-- 插入新文章 -->
+    <insert id="saveArticle" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO a_article
+        (title, document_number, issuing_department, publish_date, type, content, created_at, updated_at)
+        VALUES
+            (#{title}, #{documentNumber}, #{issuingDepartment}, #{publishDate}, #{type}, #{content}, now(), now())
+    </insert>
+
+    <!-- 更新文章 -->
+    <update id="updateArticle">
+        UPDATE a_article
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="documentNumber != null">document_number = #{documentNumber},</if>
+            <if test="issuingDepartment != null">issuing_department = #{issuingDepartment},</if>
+            <if test="publishDate != null">publish_date = #{publishDate},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="content != null">content = #{content},</if>
+            updated_at = CURRENT_TIMESTAMP
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除文章 -->
+    <delete id="deleteArticle">
+        DELETE FROM a_article WHERE id = #{id}
+    </delete>
+
+</mapper>
