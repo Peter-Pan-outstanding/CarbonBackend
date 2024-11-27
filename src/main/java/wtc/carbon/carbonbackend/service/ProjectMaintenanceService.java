@@ -3,6 +3,7 @@ package wtc.carbon.carbonbackend.service;
 import wtc.carbon.carbonbackend.entity.ProjectMaintenance;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 public interface ProjectMaintenanceService {
@@ -19,7 +20,7 @@ public interface ProjectMaintenanceService {
                                                       Integer status
                                                       );
 
-    List<ProjectMaintenance> getProjectMaintenanceWithPagination(int pageNumber, int pageSize);
+    HashMap<String, Object> getProjectMaintenanceWithPagination(int pageNumber, int pageSize);
 
 
     boolean saveProjectMaintenance(ProjectMaintenance projectMaintenance);

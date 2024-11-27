@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD MyBatis Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wtc.carbon.carbonbackend.mapper.CarbonReductionMapper">
+
+    <!-- 定义 ResultMap -->
+    <resultMap id="carbonReductionResultMap" type="wtc.carbon.carbonbackend.entity.CarbonReduction">
+        <result property="projectName" column="project_name"/>
+        <result property="investmentAmount" column="investment_amount"/>
+        <result property="originalCarbonEmission" column="original_carbon_emission"/>
+        <result property="reducedCarbonEmission" column="reduced_carbon_emission"/>
+        <result property="reportTime" column="report_time"/>
+        <result property="notes" column="notes"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <!-- 获取累计招标项目的数量 -->
+    <select id="getAmountAllProjects" resultType="int">
+        SELECT COUNT(*) FROM a_carbon_reduction
+    </select>
+
+    <!-- 获取总投资额 -->
+    <select id="getAmountInvestment" resultType="double">
+        SELECT SUM(investment_amount) FROM a_carbon_reduction
+    </select>
+
+    <!-- 获取所有原先要排放的碳的总和 -->
+    <select id="getAmountOriginalCarbon" resultType="double">
+        SELECT SUM(original_carbon_emission) FROM a_carbon_reduction
+    </select>
+
+    <!-- 获取减排之后的碳排放的总和 -->
+    <select id="getAmountReducedCarbon" resultType="double">
+        SELECT SUM(reduced_carbon_emission) FROM a_carbon_reduction
+    </select>
+
+</mapper>

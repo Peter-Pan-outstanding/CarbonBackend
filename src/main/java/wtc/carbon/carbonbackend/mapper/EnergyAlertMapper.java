@@ -29,6 +29,8 @@ public interface EnergyAlertMapper {
     // 插入新记录
     int insertEnergyAlert(EnergyAlert alert);
 
+    // 获取总数量
+    int getEnergyAlertsCount();
 
 
     // 更新记录

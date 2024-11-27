@@ -8,6 +8,7 @@ import wtc.carbon.carbonbackend.entity.ProjectMaintenance;
 import wtc.carbon.carbonbackend.service.ProjectMaintenanceService;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -64,13 +65,13 @@ public class ProjectMaintenanceController {
 
     // 分页查询
     @GetMapping ("/getProjectMaintenanceWithPagination")
-    public Result<List<ProjectMaintenance>> getProjectMaintenanceWithPagination(
+    public Result<HashMap<String,Object>> getProjectMaintenanceWithPagination(
             @RequestParam(defaultValue = "1") int pageNumber,
             @RequestParam(defaultValue = "10") int pageSize
     ) {
-        List<ProjectMaintenance> projects = projectMaintenanceService.getProjectMaintenanceWithPagination(pageNumber, pageSize);
-        if (projects != null) {
-            return Result.success(projects);
+        HashMap<String, Object> map = projectMaintenanceService.getProjectMaintenanceWithPagination(pageNumber, pageSize);
+        if (map != null) {
+            return Result.success(map);
         }else {
             return Result.error(400,"页数有误");
         }

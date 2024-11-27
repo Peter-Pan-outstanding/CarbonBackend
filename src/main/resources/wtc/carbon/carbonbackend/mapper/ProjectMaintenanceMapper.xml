@@ -50,6 +50,11 @@
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
+<!-- 获取总数 -->
+    <select id="getProjectMaintenanceCount" resultType="int">
+        SELECT COUNT(*) FROM a_project_maintenance
+    </select>
+
 
     <!-- 插入新记录 -->
     <insert id="saveProjectMaintenance" useGeneratedKeys="true" keyProperty="id">

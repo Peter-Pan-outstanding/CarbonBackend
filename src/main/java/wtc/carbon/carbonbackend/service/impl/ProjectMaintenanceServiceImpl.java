@@ -8,6 +8,7 @@ import wtc.carbon.carbonbackend.mapper.ProjectMaintenanceMapper;
 import wtc.carbon.carbonbackend.service.ProjectMaintenanceService;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -40,10 +41,16 @@ public class ProjectMaintenanceServiceImpl implements ProjectMaintenanceService 
     }
 
     @Override
-    public List<ProjectMaintenance> getProjectMaintenanceWithPagination(int pageNumber, int pageSize) {
+    public HashMap<String, Object> getProjectMaintenanceWithPagination(int pageNumber, int pageSize) {
 
         int offset = (pageNumber - 1) * pageSize;
-        return projectMaintenanceMapper.getProjectMaintenanceWithPagination(pageSize, offset);
+        List<ProjectMaintenance> maintenance = projectMaintenanceMapper.getProjectMaintenanceWithPagination(pageSize, offset);
+        int total = projectMaintenanceMapper.getProjectMaintenanceCount();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("records", maintenance);
+        map.put("total", total);
+
+        return map;
 
     }
 

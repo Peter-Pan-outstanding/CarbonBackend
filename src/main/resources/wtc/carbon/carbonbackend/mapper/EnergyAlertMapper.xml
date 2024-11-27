@@ -32,7 +32,12 @@
         ORDER BY id
         LIMIT #{limit} OFFSET #{offset}
     </select>
-
+    
+    <!-- 获取总数 -->
+    <select id="getEnergyAlertsCount" resultType="int">
+        SELECT COUNT(*) FROM a_energy_alert
+    </select>
+    
 
     <!-- 根据条件查询 -->
     <select id="getEnergyAlertsByConditions" resultMap="energyAlertResultMap">
@@ -79,7 +84,5 @@
     <delete id="deleteEnergyAlert">
         DELETE FROM a_energy_alert WHERE id = #{id}
     </delete>
-
-
 
 </mapper>

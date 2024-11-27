@@ -9,6 +9,7 @@ import wtc.carbon.carbonbackend.entity.EnergyAlert;
 import wtc.carbon.carbonbackend.enums.EnergyStatus;
 import wtc.carbon.carbonbackend.service.EnergyAlertService;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -53,10 +54,15 @@ public class EnergyAlertController {
      * @param pageSize 一页显示多少行.
      */
     @GetMapping("/getEnergyAlertsWithPagination")
-    public List<EnergyAlert> getEnergyAlertsWithPagination(
+    public Result<HashMap<String,Object>> getEnergyAlertsWithPagination(
             @RequestParam(defaultValue = "1") int pageNumber,
             @RequestParam(defaultValue = "10") int pageSize) {
-        return energyAlertService.getEnergyAlertsWithPagination(pageNumber, pageSize);
+        HashMap<String, Object> alerts = energyAlertService.getEnergyAlertsWithPagination(pageNumber, pageSize);
+        if (alerts != null) {
+            return Result.success(alerts);
+        }else {
+            return Result.error(400,"获取分页数据失败");
+        }
     }
 
 
