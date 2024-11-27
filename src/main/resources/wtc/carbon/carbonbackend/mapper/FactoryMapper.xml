@@ -103,7 +103,6 @@
             </if>
         </where>
         ORDER BY factory_id
-        LIMIT #{limit} OFFSET #{offset}
     </select>
 
 </mapper>

@@ -1,5 +1,6 @@
 package wtc.carbon.carbonbackend.service;
 
+import wtc.carbon.carbonbackend.common.PageBean;
 import wtc.carbon.carbonbackend.entity.Equipment;
 import wtc.carbon.carbonbackend.entity.FactoryModeling;
 import wtc.carbon.carbonbackend.entity.Material;
@@ -24,7 +25,7 @@ public interface FactoryService {
 
     boolean deleteEquipment(Integer id);
 
-    List<FactoryModeling> getFactoryModelingWithPagination(int pageNumber, int pageSize,String search);
+    PageBean<FactoryModeling> getFactoryModelingWithPagination(int pageNumber, int pageSize, String search);
 
     boolean addFactory(FactoryModeling alert);
 }

@@ -24,7 +24,7 @@ public interface FactoryMapper {
 
     int deleteEquipment(Integer id);
 
-    List<FactoryModeling> getFactoryModelingWithPagination(int limit, int offset, String search);
+    List<FactoryModeling> getFactoryModelingWithPagination(String search);
 
     int insertFactory(FactoryModeling alert);
 }
