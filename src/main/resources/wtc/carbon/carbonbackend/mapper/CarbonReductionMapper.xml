@@ -34,4 +34,8 @@
         SELECT SUM(reduced_carbon_emission) FROM a_carbon_reduction
     </select>
 
+    <select id="getAllCarbonReduction" resultMap="carbonReductionResultMap">
+        SELECT * FROM a_carbon_reduction
+    </select>
+
 </mapper>

@@ -4,10 +4,12 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import wtc.carbon.carbonbackend.entity.Admin;
 
 import java.util.*;
 
@@ -30,7 +32,7 @@ public class JwtUtil {
 
     // 创建token，实际上就是字符串
     // 创建JWT时，添加 userType 字段来区分Admin和User
-    public String createJwt(UserDetails details, Integer id, String username, String userType, String role) {
+    public String createJwt(UserDetails details, Integer id, String username) {
         Algorithm algorithm = Algorithm.HMAC256(key); // 指定加密算法
 
         List<String> authorities = Optional.ofNullable(details)
@@ -44,8 +46,6 @@ public class JwtUtil {
                 .withJWTId(UUID.randomUUID().toString())
                 .withClaim("id", id)
                 .withClaim("username", username)
-                .withClaim("userType", userType)
-                .withClaim("role", role) // 权限，目前只有admin表有
                 .withClaim("authorities", authorities)
                 .withExpiresAt(getExpireTime().getTime())
                 .withIssuedAt(new Date())
@@ -53,29 +53,11 @@ public class JwtUtil {
     }
 
     // 将JWT的转换为SpringSecurity的 UserDetails
-    /*public UserDetails toUserDetails(DecodedJWT decodedJWT) {
+    public UserDetails toUserDetails(DecodedJWT decodedJWT) {
         Map<String, Claim> claims = decodedJWT.getClaims();
-        String userType = claims.get("userType").asString();
-        if ("admin".equals(userType)) {
-            return toAdmin(decodedJWT);  // 根据角色返回Admin对象
-        } else if ("user".equals(userType)) {
-            return toRegularUser(decodedJWT);  // 返回普通User对象
-        }
-        throw new RuntimeException("用户类型错误");
-    }*/
 
-    // 转换成 UserDetails 的实现类
-    // 转换为Admin
-/*    private UserDetails toAdmin(DecodedJWT decodedJWT) {
-        Map<String, Claim> claims = decodedJWT.getClaims();
-        return new Admin(claims.get("username").asString(),claims.get("role").asString());
-    }*/
-
-    // 转换为User
-/*    private UserDetails toRegularUser(DecodedJWT decodedJWT) {
-        Map<String, Claim> claims = decodedJWT.getClaims();
-        return new com.zjj.shoppingweb.entity.User(claims.get("username").asString());
-    }*/
+        return new Admin(claims.get("username").asString());
+    }
 
     // 将前端的请求转换为jwt
     public DecodedJWT decode(String headerToken) {

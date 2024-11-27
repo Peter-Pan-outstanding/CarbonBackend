@@ -1,6 +1,9 @@
 package wtc.carbon.carbonbackend.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import wtc.carbon.carbonbackend.entity.CarbonReduction;
+
+import java.util.List;
 
 @Mapper
 public interface CarbonReductionMapper {
@@ -15,5 +18,7 @@ public interface CarbonReductionMapper {
 
     // 获取减排之后的碳排放的总和
     double getAmountReducedCarbon();
+
+    List<CarbonReduction> getAllCarbonReduction();
 
 }
