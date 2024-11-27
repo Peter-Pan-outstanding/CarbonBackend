@@ -4,6 +4,7 @@ package wtc.carbon.carbonbackend.service;
 import wtc.carbon.carbonbackend.entity.EnergyAlert;
 import wtc.carbon.carbonbackend.enums.EnergyStatus;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface EnergyAlertService {
@@ -19,8 +20,8 @@ public interface EnergyAlertService {
                                                   String monitoringPointAddress,
                                                   Integer status);
 
-    // 分页查询所有的EnergyAlert
-    List<EnergyAlert> getEnergyAlertsWithPagination(int pageNumber, int pageSize);
+    // 分页查询所有的EnergyAlert {records: data, total: int}
+    HashMap<String, Object> getEnergyAlertsWithPagination(int pageNumber, int pageSize);
 
 
 

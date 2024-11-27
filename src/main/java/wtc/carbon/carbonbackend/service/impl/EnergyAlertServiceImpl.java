@@ -7,6 +7,7 @@ import wtc.carbon.carbonbackend.enums.EnergyStatus;
 import wtc.carbon.carbonbackend.mapper.EnergyAlertMapper;
 import wtc.carbon.carbonbackend.service.EnergyAlertService;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -27,9 +28,15 @@ public class EnergyAlertServiceImpl implements EnergyAlertService {
     }
 
     @Override
-    public List<EnergyAlert> getEnergyAlertsWithPagination(int pageNumber, int pageSize){
+    public HashMap<String,Object> getEnergyAlertsWithPagination(int pageNumber, int pageSize){
         int offset = (pageNumber - 1) * pageSize;
-        return energyAlertMapper.getEnergyAlertsWithPagination(pageSize, offset);
+        List<EnergyAlert> pagination = energyAlertMapper.getEnergyAlertsWithPagination(pageSize, offset);
+        int total = energyAlertMapper.getEnergyAlertsCount();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("records", pagination);
+        map.put("total", total);
+
+        return map;
     }
 
 

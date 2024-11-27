@@ -29,6 +29,9 @@ public interface ProjectMaintenanceMapper {
     // 分页查询
     List<ProjectMaintenance> getProjectMaintenanceWithPagination(int limit, int offset);
 
+    // 获取总数
+    int getProjectMaintenanceCount();
+
 
 
     // 插入新记录
