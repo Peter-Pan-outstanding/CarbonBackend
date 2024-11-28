@@ -59,7 +59,7 @@ public class ArticleServiceImpl implements ArticleService {
         } else if (type == 1){
             strType = "工作通知";
         } else if (type == 2){
-            strType = "新闻咨询";
+            strType = "新闻资讯";
         } else {
             return null;
         }
