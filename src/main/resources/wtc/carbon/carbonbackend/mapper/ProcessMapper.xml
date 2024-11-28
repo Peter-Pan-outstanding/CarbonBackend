@@ -65,7 +65,27 @@
     </select>
 
     <select id="list" resultMap="ProcessModelingResultMap">
-        SELECT * FROM a_process_modeling
+        SELECT
+        a.process_id,
+        a.process_name,
+        a.product,
+        f.product_model AS model,               -- 从 a_factory_modeling 获取 model
+        f.product_specification AS specification, -- 从 a_factory_modeling 获取 specification
+        f.product_unit AS unit,                 -- 从 a_factory_modeling 获取 unit
+        a.power_consumption,
+        a.remark,
+        a.created_at,
+        a.updated_at,
+        a.process_description
+        FROM a_process_modeling a
+        LEFT JOIN a_factory_modeling f
+        ON a.product = f.product
+        <where>
+            <if test="search != null and search != ''">
+                AND a.process_name LIKE CONCAT('%', #{search}, '%')
+            </if>
+        </where>
+        ORDER BY a.process_id
     </select>
 
 </mapper>
