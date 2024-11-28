@@ -17,6 +17,14 @@ public class ProcessController {
     @Autowired
     //查询信息
     private ProcessService processService;
+
+    @GetMapping("/getAllProcessModeling")
+    public Result<List<ProcessModeling>> list(){
+        List<ProcessModeling> pm = processService.list();
+        return Result.success(pm);
+    }
+
+
     /**
      * @param pageNumber 显示第几页
      * @param pageSize 一页显示多少行.

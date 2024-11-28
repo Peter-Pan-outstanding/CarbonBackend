@@ -20,7 +20,7 @@ public class FactoryController {
     private FactoryService factoryService;
 
     //查询所有工厂信息
-    @GetMapping
+    @GetMapping("/getAllFactoryModeling")
     public Result<List<FactoryModeling>> list(){
         List<FactoryModeling> fm = factoryService.list();
         return Result.success(fm);

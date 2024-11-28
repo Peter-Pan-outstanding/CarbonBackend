@@ -64,4 +64,8 @@
         ORDER BY a.process_id
     </select>
 
+    <select id="list" resultMap="ProcessModelingResultMap">
+        SELECT * FROM a_process_modeling
+    </select>
+
 </mapper>

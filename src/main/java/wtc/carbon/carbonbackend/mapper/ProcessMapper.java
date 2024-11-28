@@ -15,4 +15,6 @@ public interface ProcessMapper {
     int saveProcess(ProcessModeling alert);
 
     int deleteProcess(Integer id);
+
+    List<ProcessModeling> list();
 }

@@ -45,4 +45,9 @@ public class ProcessServiceImpl implements ProcessService {
     public boolean deleteProcess(Integer id) {
         return projectMapper.deleteProcess(id) >= 1;
     }
+
+    @Override
+    public List<ProcessModeling> list() {
+        return projectMapper.list();
+    }
 }
