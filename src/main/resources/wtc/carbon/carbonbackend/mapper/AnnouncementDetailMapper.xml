@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD MyBatis Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wtc.carbon.carbonbackend.mapper.AnnouncementDetailMapper">
+
+    <!-- ResultMap for AAnnouncementDetail -->
+    <resultMap id="announcementDetailMap" type="wtc.carbon.carbonbackend.entity.AnnouncementDetail">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="projectNumber" column="project_number"/>
+        <result property="tenderUnit" column="tender_unit"/>
+        <result property="content" column="content"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <select id="getAnnouncementDetailById" resultMap="announcementDetailMap">
+        SELECT * FROM a_announcement_detail WHERE id = #{id}
+    </select>
+
+
+</mapper>

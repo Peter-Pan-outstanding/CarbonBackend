@@ -18,4 +18,9 @@ public class AttachmentServiceImpl implements AttachmentService {
     public List<Attachment> getAttachmentsByArticleId(int articleId) {
         return attachmentMapper.getAttachmentsByArticleId(articleId);
     }
+
+    @Override
+    public List<Attachment> getAttachmentsByAnnouncementId(int announcementId) {
+        return attachmentMapper.getAttachmentsByAnnouncementId(announcementId);
+    }
 }

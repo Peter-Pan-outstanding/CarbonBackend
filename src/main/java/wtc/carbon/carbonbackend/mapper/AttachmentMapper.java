@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface AttachmentMapper {
     List<Attachment> getAttachmentsByArticleId(int articleId);
+
+    List<Attachment> getAttachmentsByAnnouncementId(int announcementId);
 }

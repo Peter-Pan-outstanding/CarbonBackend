@@ -9,6 +9,7 @@
         <result property="size" column="size"/>
         <result property="fileUrl" column="file_url"/>
         <result property="articleId" column="article_id"/>
+        <result property="announcementId" column="Announcement_id"/>
         <result property="createdAt" column="created_at"/>
         <result property="updatedAt" column="updated_at"/>
     </resultMap>
@@ -19,52 +20,12 @@
         SELECT * FROM a_attachment WHERE article_id = #{articleId}
     </select>
 
-
-
-
-<!--    以下方法均为扩展考虑，目前没有用到-->
-
-    <!-- 查询所有附件 -->
-    <select id="getAllAttachments" resultMap="attachmentResultMap">
-        SELECT * FROM a_attachment
-    </select>
-
-    <!-- 根据 ID 查询附件 -->
-    <select id="getAttachmentById" resultMap="attachmentResultMap">
-        SELECT * FROM a_attachment WHERE id = #{id}
+<!--    根据通告ID查询附件-->
+    <select id="getAttachmentsByAnnouncementId" resultMap="attachmentResultMap">
+        SELECT * FROM a_attachment WHERE Announcement_id = #{announcementId}
     </select>
 
 
 
-    <!-- 分页查询所有附件 -->
-    <select id="getAttachmentsWithPagination" resultMap="attachmentResultMap">
-        SELECT * FROM a_attachment
-        ORDER BY id
-            LIMIT #{limit} OFFSET #{offset}
-    </select>
-
-    <!-- 获取附件总数 -->
-    <select id="getAttachmentsCount" resultType="int">
-        SELECT COUNT(*) FROM a_attachment
-    </select>
-
-    <!-- 根据条件查询附件 -->
-    <select id="getAttachmentsByConditions" resultMap="attachmentResultMap">
-        SELECT * FROM a_attachment
-        <where>
-            <if test="fileUrl != null and fileUrl != ''">
-                AND file_url = #{fileUrl}
-            </if>
-            <if test="articleId != null">
-                AND article_id = #{articleId}
-            </if>
-        </where>
-    </select>
-
-
-    <!-- 删除附件 -->
-    <delete id="deleteAttachment">
-        DELETE FROM a_attachment WHERE id = #{id}
-    </delete>
 
 </mapper>

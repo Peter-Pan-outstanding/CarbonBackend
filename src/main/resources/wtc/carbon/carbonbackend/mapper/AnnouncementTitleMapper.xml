@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD MyBatis Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wtc.carbon.carbonbackend.mapper.AnnouncementTitleMapper">
+
+    <resultMap id="announcementTitleMap" type="wtc.carbon.carbonbackend.entity.AnnouncementTitle">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="announcementDetailId" column="announcement_detail_id"/>
+        <result property="publishingUnit" column="publishing_unit"/>
+        <result property="publishDate" column="publish_date"/>
+        <result property="projectAmount" column="project_amount"/>
+        <result property="status" column="status"/>
+        <result property="category" column="category"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+
+
+    <select id="getAnnouncementTitlesByCategoryWithPagination" resultMap="announcementTitleMap">
+        SELECT * FROM a_announcement_title WHERE category = #{category}
+        ORDER BY id
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+
+</mapper>
