@@ -85,6 +85,7 @@ public class SecurityConfig {
                 .sessionManagement(conf -> conf
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(conf -> conf
+                                .requestMatchers("/carbonReduction/**").permitAll()
                                 .requestMatchers("/announcementDetail/**").permitAll()
                                 .requestMatchers("/announcementTitle/**").permitAll()
                                 .requestMatchers("/article/**").permitAll()
