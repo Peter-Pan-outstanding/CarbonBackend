@@ -85,12 +85,17 @@ public class SecurityConfig {
                 .sessionManagement(conf -> conf
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(conf -> conf
-                                .requestMatchers("/carbonReduction/**").permitAll()
-                                .requestMatchers("/announcementDetail/**").permitAll()
-                                .requestMatchers("/announcementTitle/**").permitAll()
-                                .requestMatchers("/article/**").permitAll()
-//                                .anyRequest().permitAll()
-//                        .requestMatchers("/article/").permitAll()
+                        .requestMatchers("/productionPlan/**").permitAll()
+                        .requestMatchers("/salesperson/**").permitAll()
+                        .requestMatchers("/salesStatistics/**").permitAll()
+                        .requestMatchers("/salesPlan/**").permitAll()
+                        .requestMatchers("/monthlyPerformance/**").permitAll()
+                        .requestMatchers("/product/**").permitAll()
+                        .requestMatchers("/energyData/**").permitAll()
+                        .requestMatchers("/carbonReduction/**").permitAll()
+                        .requestMatchers("/announcementDetail/**").permitAll()
+                        .requestMatchers("/announcementTitle/**").permitAll()
+                        .requestMatchers("/article/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(conf -> conf

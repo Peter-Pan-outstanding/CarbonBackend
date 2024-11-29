@@ -38,5 +38,4 @@ public class ArticleController {
             return Result.error(404,"获取文章失败，类型错误");
         }
     }
-
 }
