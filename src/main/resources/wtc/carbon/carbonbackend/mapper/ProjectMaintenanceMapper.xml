@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD MyBatis Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wtc.carbon.carbonbackend.mapper.ProjectMaintenanceMapper">
+
+    <!-- 定义 ResultMap 映射 -->
+    <resultMap id="projectMaintenanceResultMap" type="wtc.carbon.carbonbackend.entity.ProjectMaintenance">
+        <id property="id" column="id"/>
+        <result property="projectName" column="project_name"/>
+        <result property="manager" column="manager"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="status" column="status"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <!-- 根据 ID 查询记录 -->
+    <select id="getProjectById" resultMap="projectMaintenanceResultMap">
+        SELECT * FROM a_project_maintenance WHERE id = #{id}
+    </select>
+
+    <!-- 查询所有记录 -->
+    <select id="getAllProjects" resultMap="projectMaintenanceResultMap">
+        SELECT * FROM a_project_maintenance
+    </select>
+
+    <!-- 根据名称和时间查询 -->
+    <select id="getProjectsByNameAndDate" resultMap="projectMaintenanceResultMap">
+        SELECT * FROM a_project_maintenance
+        <where>
+            <if test="projectName != null and projectName != ''">
+                AND project_name = #{projectName}
+            </if>
+            <if test="startDateStart != null and startDateEnd != null">
+                AND start_date between #{startDateStart} and #{startDateEnd}
+            </if>
+            <if test="endDateStart != null and endDateEnd != null">
+                AND end_date between #{endDateStart} and #{endDateEnd}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+    </select>
+
+<!--    分页查询-->
+    <select id="getProjectMaintenanceWithPagination" resultMap="projectMaintenanceResultMap">
+        SELECT * FROM a_project_maintenance
+        ORDER BY id
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+<!-- 获取总数 -->
+    <select id="getProjectMaintenanceCount" resultType="int">
+        SELECT COUNT(*) FROM a_project_maintenance
+    </select>
+
+
+    <!-- 插入新记录 -->
+    <insert id="saveProjectMaintenance" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO a_project_maintenance
+        (project_name, manager, start_date, end_date, status, created_at, updated_at)
+        VALUES
+            (#{projectName}, #{manager}, #{startDate}, #{endDate}, #{status}, now(), now())
+    </insert>
+
+    <!-- 更新记录 -->
+    <update id="updateProjectMaintenance">
+        UPDATE a_project_maintenance
+        <set>
+            <if test="projectName != null">project_name = #{projectName},</if>
+            <if test="manager != null">manager = #{manager},</if>
+            <if test="startDate != null">start_date = #{startDate},</if>
+            <if test="endDate != null">end_date = #{endDate},</if>
+            <if test="status != null">status = #{status},</if>
+            updated_at = CURRENT_TIMESTAMP
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="deleteProjectById">
+        DELETE FROM a_project_maintenance WHERE id = #{id}
+    </delete>
+
+</mapper>
